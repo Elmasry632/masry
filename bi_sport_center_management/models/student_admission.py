@@ -4,11 +4,15 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError, UserError
 from datetime import datetime, timedelta, date
+<<<<<<< HEAD
 from pytz import timezone, UTC
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
 
 
 class StudentAdmission(models.Model):
     _name = "student.admission"
+<<<<<<< HEAD
     _description = "Trainee Admission"
 
     day_one = fields.Selection([
@@ -35,6 +39,14 @@ class StudentAdmission(models.Model):
                        readonly=True, default=lambda self: _('New'))
     student_id = fields.Many2one('res.partner', string='Trainee Name', required=True,
                                  domain=[('is_coach', '=', False)])
+=======
+    _description = "Student Admission"
+
+    name = fields.Char('Name', required=True,
+                       readonly=True, default=lambda self: _('New'))
+    student_id = fields.Many2one('res.partner', string='Student Name', required=True,
+                                 domain=[('is_student', '=', False), ('is_coach', '=', False)])
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
     mobile = fields.Char('Mobile', related='student_id.mobile', store=True, readonly=False)
     p_name = fields.Char('Parent Name', related='student_id.p_name', readonly=False)
     parent_mobile = fields.Char('Parent Mobile', related='student_id.phone', readonly=False)
@@ -45,6 +57,7 @@ class StudentAdmission(models.Model):
     disability_description = fields.Text('Disability Description', related='student_id.disability_description',
                                          store=True, readonly=False)
     sport_id = fields.Many2one(
+<<<<<<< HEAD
         'product.product', string="Sport Name", domain=[('is_sportname', '=', True)], required=True, )
     level_id = fields.Many2one('res.partner', string="Sport Center", domain=[
         ('is_sport', '=', True)], required=True, )
@@ -54,11 +67,24 @@ class StudentAdmission(models.Model):
         ('enrolled', 'Enrolled'),
         ('student', 'Trainee'),
         ('cancel', 'Ended')], string='State',
+=======
+        'product.product', string="Sport Name", domain=[('is_sportname', '=', True)])
+    level_id = fields.Many2one('res.partner', string="Sport Center", domain=[
+        ('is_sport', '=', True)])
+    trainer_id = fields.Many2one(comodel_name='res.partner', domain=[('is_coach', '=', True)], string='Coach')
+    duration = fields.Float("Duration(Days)", compute="_compute_spend_time")
+    state = fields.Selection([
+        ('new', 'New'),
+        ('enrolled', 'Enrolled'),
+        ('student', 'Student'),
+        ('cancel', 'Cancelled')], string='State',
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
         copy=False, default="new", store=True)
     is_invoiced = fields.Boolean()
     inquiry_id = fields.Many2one('student.inquiry', string='Inquiry')
     check_parent = fields.Boolean('Check Parent', related='inquiry_id.check_parent')
     check_register = fields.Boolean('Check Register')
+<<<<<<< HEAD
     start_date = fields.Float(string="Start Date")
     end_date = fields.Float(string="End Date")
 
@@ -68,10 +94,17 @@ class StudentAdmission(models.Model):
 
     is_warning = fields.Boolean(string="Warning", compute="_compute_is_warning", store=True)
     n_of_reservations = fields.Integer(string='Number of reservations', compute="_compute_n_of_reservations")
+=======
+    start_date = fields.Date(string="Start Date")
+    end_date = fields.Date(string="End Date")
+    is_warning = fields.Boolean(string="Warning", compute="_compute_is_warning", store=True)
+    n_of_reservations = fields.Integer(string='Number of reservations', )
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
     n_of_reservations_done = fields.Integer(string='Number of reservations done',
                                             compute='_compute_n_of_reservations_done')
     reservation_ids = fields.One2many('student.reservation', 'admission_id')
     is_reservation_done = fields.Boolean(defualt=False, compute='_compute_is_reservation_done')
+<<<<<<< HEAD
     n_of_reservations_unfinished = fields.Integer(string='UnFinished reservations',
                                                   compute='_compute_n_of_reservations_unfinished', store=1)
     is_vip = fields.Boolean(string='VIP')
@@ -119,6 +152,8 @@ class StudentAdmission(models.Model):
         for rec in self:
             n_of_unfinished_reservations = len(rec.reservation_ids.filtered(lambda r: r.state != 'finished'))
             rec.n_of_reservations_unfinished = n_of_unfinished_reservations
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
 
     @api.depends('reservation_ids')
     def _compute_is_reservation_done(self):
@@ -139,6 +174,7 @@ class StudentAdmission(models.Model):
             if record.n_of_reservations <= 0:
                 raise ValidationError("The number of reservations cannot be 0 or negative.")
 
+<<<<<<< HEAD
     @api.constrains('start_date', 'end_date')
     def _check_start_date_end_date(self):
         for record in self:
@@ -183,6 +219,16 @@ class StudentAdmission(models.Model):
                 warning_date = date.today() + timedelta(days=5)
                 # Compare `end_date` (date) with `warning_date` (also date)
                 record.is_warning = record.end_duration <= warning_date
+=======
+    @api.depends('end_date')
+    def _compute_is_warning(self):
+        for record in self:
+            if record.end_date:
+                # Calculate the warning date as a `datetime.date`
+                warning_date = date.today() + timedelta(days=5)
+                # Compare `end_date` (date) with `warning_date` (also date)
+                record.is_warning = record.end_date <= warning_date
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
             else:
                 record.is_warning = False
 
@@ -193,12 +239,21 @@ class StudentAdmission(models.Model):
         for admission in admissions:
             admission._compute_is_warning()
 
+<<<<<<< HEAD
     @api.depends('start_duration', 'end_duration')
     def _compute_duration(self):
         for record in self:
             if record.start_duration and record.end_duration:
                 # Calculate the number of days directly
                 delta = (record.end_duration - record.start_duration).days
+=======
+    @api.depends('start_date', 'end_date')
+    def _compute_spend_time(self):
+        for record in self:
+            if record.start_date and record.end_date:
+                # Calculate the number of days directly
+                delta = (record.end_date - record.start_date).days
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                 record.duration = float(delta) + 1  # Convert to float if needed
             else:
                 record.duration = 0.0
@@ -243,6 +298,7 @@ class StudentAdmission(models.Model):
         return res
 
     def action_enroll(self):
+<<<<<<< HEAD
 
         def local_to_utc_naive(dt):
             user_tz = timezone(self.env.user.tz or 'UTC')  # User's timezone
@@ -311,11 +367,28 @@ class StudentAdmission(models.Model):
         self.student_id.admission_id = self.id
 
         # Send enrollment email
+=======
+        self.state = 'enrolled'
+        # self.student_id.update({'is_student': False})
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
         template = self.env.ref(
             'bi_sport_center_management.student_admission_enroll_email_template')
         if template:
             template.send_mail(self.id, force_send=True)
 
+<<<<<<< HEAD
+=======
+        # print(self._context)
+        # return {
+        #     'name': 'Create Invoice',
+        #     'view_mode': 'form',
+        #     'res_model': 'create.invoice',
+        #     'type': 'ir.actions.act_window',
+        #     'context': self._context,
+        #     'target': 'new',
+        # }
+
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
     def action_make_student(self):
         if not self.is_invoiced:
             return {
@@ -342,6 +415,7 @@ class StudentAdmission(models.Model):
             if reserv.state != 'finished':
                 reserv.unlink()
 
+<<<<<<< HEAD
     def action_cancel_cron(self):
         current_date = datetime.now().date()
         admissions = self.search([])
@@ -354,6 +428,8 @@ class StudentAdmission(models.Model):
                     admission.is_admission_finished = True
                     admission.state = 'cancel'
 
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
     def action_new(self):
         self.ensure_one()
         self.state = 'new'
@@ -397,6 +473,7 @@ class StudentAdmission(models.Model):
             }
         }
 
+<<<<<<< HEAD
     def action_create_reservation_auto(self):
         self.ensure_one()
 
@@ -469,6 +546,8 @@ class StudentAdmission(models.Model):
         # Batch create reservations
         self.env['student.reservation'].create(reservations)
 
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
     def action_view_reservations(self):
         self.ensure_one()
         reservation_ids = self.env['student.reservation'].search([('ref', '=', self.name)])
@@ -486,7 +565,13 @@ class StudentAdmission(models.Model):
 
     def unlink(self):
         for record in self:
+<<<<<<< HEAD
             if record.state in ['student', 'enrolled', 'cancel']:
                 raise ValidationError(
                     _("You cannot delete an admission after its enrollment."))
         return super(StudentAdmission, self).unlink()
+=======
+            if record.state == 'student':
+                raise ValidationError(_("You cannot delete an admission that is in the 'student' state, cancel it first."))
+        return super(StudentAdmission, self).unlink()
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639

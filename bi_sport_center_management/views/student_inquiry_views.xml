@@ -79,5 +79,9 @@
             </p>
         </field>
     </record>
+<<<<<<< HEAD
 <!--    <menuitem id="student_inquiry_menu_sub" name="Inquiry" parent="bi_sport_center_management.student_admission_menu" sequence="30" action="action_student_inquiry"/>-->
+=======
+    <menuitem id="student_inquiry_menu_sub" name="Inquiry" parent="bi_sport_center_management.student_admission_menu" sequence="30" action="action_student_inquiry"/>
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
 </odoo>

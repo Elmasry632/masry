@@ -5,18 +5,30 @@ from datetime import datetime, timedelta, date
 
 class StudentReservation(models.Model):
     _name = "student.reservation"
+<<<<<<< HEAD
     _description = "Trainee reservation"
 
     name = fields.Char('Name', compute="_compute_name", store=True, readonly=True)
     ref = fields.Char(string='Reference', related='admission_id.name')
     student_id = fields.Many2one('res.partner', string='Trainee', required=True,
+=======
+    _description = "Student reservation"
+
+    name = fields.Char('Name', compute="_compute_name", store=True, readonly=True)
+    ref = fields.Char(string='Reference', related='admission_id.name')
+    student_id = fields.Many2one('res.partner', string='Student', required=True,
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                                  domain=[('is_student', '=', True)])
     sport_id = fields.Many2one(
         'product.product', string="Sport Name", domain=[('is_sportname', '=', True)])
     level_id = fields.Many2one('res.partner', string="Sport Center", domain=[
         ('is_sport', '=', True)])
     trainer_id = fields.Many2one(comodel_name='res.partner', domain=[('is_coach', '=', True)], string='Coach')
+<<<<<<< HEAD
 
+=======
+    duration = fields.Float("Duration(Days)", compute="_compute_spend_time")
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
     state = fields.Selection([
         ('yet', 'Yet to come'),
         ('today', 'Today'),
@@ -28,6 +40,7 @@ class StudentReservation(models.Model):
     check_register = fields.Boolean('Check Register')
     start_date = fields.Datetime(string="Start Date")
     end_date = fields.Datetime(string="End Date")
+<<<<<<< HEAD
     day_name = fields.Char(string='Day', compute='_compute_day_name', store=True)
     color = fields.Integer()
     admission_id = fields.Many2one('student.admission')
@@ -47,6 +60,11 @@ class StudentReservation(models.Model):
     def action_finish(self):
         for rec in self:
             rec.state = 'finished'
+=======
+    color = fields.Integer()
+    admission_id = fields.Many2one('student.admission')
+    is_vip = fields.Boolean(string='VIP')
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
 
     @api.model
     def update_reservation_states(self):
@@ -73,6 +91,7 @@ class StudentReservation(models.Model):
             student_name = record.student_id.name if record.student_id else "No Student"
             record.name = f"{student_name} with {coach_name}"
 
+<<<<<<< HEAD
     def action_change_details(self):
         """Opens the reservation change wizard."""
         self.ensure_one()  # Ensure only one record is selected
@@ -117,15 +136,55 @@ class StudentReservation(models.Model):
     #                     'conflict_message': f"Trainer {record.trainer_id.name} already has 5 reservations in this time frame. Do you want to proceed?"
     #                 }).with_context(active_id=record.id).action_open_dialog()
     #                 return
+=======
+    @api.depends('start_date', 'end_date')
+    def _compute_spend_time(self):
+        for record in self:
+            if record.start_date and record.end_date:
+                # Calculate the number of days (including fractions of days)
+                delta = record.end_date - record.start_date
+                record.duration = delta.total_seconds() / 3600  # Convert seconds to days
+            else:
+                record.duration = 0.0
+
+    @api.constrains('trainer_id', 'start_date', 'end_date')
+    def _check_trainer_availability(self):
+        for record in self:
+            if record.trainer_id and record.start_date and record.end_date:
+                # Search for overlapping reservations for the same trainer
+                overlapping_reservations = self.search([
+                    ('trainer_id', '=', record.trainer_id.id),
+                    ('id', '!=', record.id),  # Exclude the current record
+                    ('start_date', '<=', record.end_date),  # Overlap condition
+                    ('end_date', '>=', record.start_date)  # Overlap condition
+                ])
+                for over_res in overlapping_reservations:
+                    if over_res.is_vip:
+                        raise ValidationError(
+                            f"There is a vip reservation done in this appointment."
+                        )
+
+                if overlapping_reservations and record.is_vip:
+                    raise ValidationError(
+                        f"There is some reservations in this time for this couch, choose another empty appointment."
+                    )
+                if len(overlapping_reservations) >= 5:
+                    raise ValidationError(
+                        f"Trainer {record.trainer_id.name} already has 5 reservations in this time frame."
+                    )
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
 
     def unlink(self):
         for record in self:
             if record.state == 'finished':
                 raise ValidationError(_("You cannot delete a reservation that is in the 'Finished' state."))
+<<<<<<< HEAD
             if record.admission_id.state == 'student':
                 raise ValidationError(
                     _("You cannot delete a reservation after creating invoice, but you can still edit your reservation.."))
 
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
         return super(StudentReservation, self).unlink()
 
     #
@@ -134,8 +193,31 @@ class StudentReservation(models.Model):
     #     if self.trainer_id and self.student_id:
     #         self.student_id.trainer_id = self.trainer_id.id
 
+<<<<<<< HEAD
     @api.model_create_multi
     def create(self, vals_list):
         res = super(StudentReservation, self).create(vals_list)
 
         return res
+=======
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     for vals in vals_list:
+    #         if vals.get('name', _('New')) == _('New'):
+    #             vals['name'] = self.env['ir.sequence'].next_by_code(
+    #                 'student.reservation') or _('New')
+    #     res = super(Studentreservation, self).create(vals_list)
+    #     portal_wizard_obj = self.env['portal.wizard']
+    #     created_portal_wizard = portal_wizard_obj.create({})
+    #     if created_portal_wizard and res.email:
+    #         portal_wizard_user_obj = self.env['portal.wizard.user']
+    #         wiz_user_vals = {
+    #             'wizard_id': created_portal_wizard.id,
+    #             'partner_id': res.student_id.id,
+    #             'email': res.student_id.email,
+    #         }
+    #         created_portal_wizard_user = portal_wizard_user_obj.create(wiz_user_vals)
+    #         if created_portal_wizard_user:
+    #             created_portal_wizard_user.action_grant_access()
+    #     return res
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639

@@ -23,8 +23,11 @@
         'report/center_certificate_report.xml',
         'views/templates.xml',
         'wizard/create_invoice_views.xml',
+<<<<<<< HEAD
         'wizard/reservation_conflict_wizard_view.xml',
         'wizard/reservation_change_wizard_view.xml',
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
         'views/res_partner_views.xml',
         'views/student_admission_views.xml',
         'data/center_sport_dashboard_views.xml',
@@ -35,7 +38,10 @@
         'views/center_certificate_views.xml',
         'views/purchase_views.xml',
         'views/student_reservation_views.xml',
+<<<<<<< HEAD
         'views/level_views.xml',
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
     ],
     'assets': {
         'web.assets_frontend': [

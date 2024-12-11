@@ -32,8 +32,11 @@
                     <filter string="Sport Name" name="group_by_sport" context="{'group_by': 'sport_id'}"/>
                     <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
                     <filter string="Vip" name="group_by_vip" context="{'group_by': 'is_vip'}"/>
+<<<<<<< HEAD
                     <filter string="Level" name="group_by_c_level_id" context="{'group_by': 'c_level_id'}"/>
                     <filter string="day" name="group_by_day_name" context="{'group_by' : 'day_name'}"/>
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
 
                 </group>
             </search>
@@ -49,6 +52,7 @@
                 <field name="ref"/>
                 <field name="name"/>
                 <field name="student_id"/>
+<<<<<<< HEAD
                 <field name="student_age" optional="show"/>
                 <field name="sport_id" optional="show"/>
                 <field name="level_id" optional="show"/>
@@ -57,6 +61,13 @@
                 <field name="day_name" optional="show"/>
                 <field name="start_date" optional="hide"/>
                 <field name="end_date" optional="hide"/>
+=======
+                <field name="sport_id"/>
+                <field name="level_id"/>
+                <field name="trainer_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                 <field name="state" widget="badge"
                        decoration-success="state == 'today'"
                        decoration-danger="state == 'finished'"
@@ -73,6 +84,7 @@
         <field name="arch" type="xml">
             <form string="Student" create="false" edit="false" delete="false">
                 <header>
+<<<<<<< HEAD
                     <button string="Change Reservation" name="action_change_details" invisible="state == 'finished'"
                             type="object"
                             confirm="Are you sure you want to change the reservation ?"
@@ -81,6 +93,8 @@
                     <button string="Finish" name="action_finish" type="object"
                             class="oe_highlight" invisible="1"/>
 
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                     <field name="state" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -90,6 +104,7 @@
                             <field name="name" class="oe_inline"/>
                         </h1>
                     </div>
+<<<<<<< HEAD
                     <dev>
                         <label for="admission_id" class="me-4"/>
                         <field name="admission_id" string="Ref"/>
@@ -98,6 +113,14 @@
 
                     <div>
                         <label for="is_vip" class="me-4"/>
+=======
+
+                    <label for="ref"/>
+                    <field name="ref"/>
+
+                    <div>
+                        <label for="is_vip"/>
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                         <field name="is_vip" widget="boolean_toggle"/>
                     </div>
 
@@ -109,8 +132,11 @@
                                    options='{"always_reload": True}'/>
 
                             <field name="trainer_id"/>
+<<<<<<< HEAD
                             <field name="student_age"/>
                             <field name="day_name"/>
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                             <label for="start_date" string="Reservation Time"/>
                             <div class="w-100">
                                 <div class="o_row">
@@ -128,7 +154,10 @@
                         <group string="Sport details">
                             <field name="sport_id"/>
                             <field name="level_id"/>
+<<<<<<< HEAD
                             <field name="c_level_id"/>
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                         </group>
                     </group>
                 </sheet>
@@ -142,7 +171,10 @@
         <field name="arch" type="xml">
             <form string="Student">
                 <header>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                     <field name="state" widget="statusbar" invisible="1"/>
                 </header>
                 <sheet>
@@ -164,9 +196,12 @@
                                    options='{"always_reload": True}'/>
 
                             <field name="trainer_id" readonly="1"/>
+<<<<<<< HEAD
                             <field name="student_age"/>
                             <field name="day_name"/>
 
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
 
                             <label for="start_date" string="Reservation Time"/>
                             <div class="w-100">

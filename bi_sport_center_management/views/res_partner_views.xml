@@ -6,11 +6,16 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
             <xpath expr="//page[@name='internal_notes']" position="after">
                 <page name="sport_center" string="Sport Center">
                     <group>
                         <group name="sport" string="Sport Details">
+<<<<<<< HEAD
 
                             <!--                            <field name="admission_id"/>-->
                             <!--                            <field name="birth_date"/>-->
@@ -19,6 +24,10 @@
                             <field name="is_student"/>
                             <field name="trainer_id" options="{'no_create_edit': True, 'no_create': True}"
                                    string="Current Trainer" invisible="is_student == False" readonly="1"/>
+=======
+                            <field name="is_student"/>
+                            <field name="trainer_id" options="{'no_create_edit': True, 'no_create': True}" string="Current Trainer" invisible ="is_student == False"/>
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                             <field name="is_coach"/>
                             <field name="sport_id" widget="many2many_tags"/>
                         </group>

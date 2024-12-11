@@ -11,4 +11,7 @@ from . import center_certificate
 from . import sale_order
 from . import student_admission
 from . import student_reservation
+<<<<<<< HEAD
 from . import level
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639

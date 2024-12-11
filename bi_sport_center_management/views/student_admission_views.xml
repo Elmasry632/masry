@@ -37,23 +37,37 @@
             </field>
         </record>
 
+<<<<<<< HEAD
         <record id="student_admission_view_tree" model="ir.ui.view">
+=======
+        <record model="ir.ui.view" id="student_admission_view_tree">
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
             <field name="name">student.admission.list</field>
             <field name="model">student.admission</field>
             <field name="type">list</field>
             <field name="arch" type="xml">
+<<<<<<< HEAD
                 <list string="Student Admissions" decoration-danger="is_admission_finished"
                       decoration-warning="is_warning">
+=======
+                <list string="Student Admissions" decoration-danger="is_warning">
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                     <field name="name"/>
                     <field name="student_id"/>
                     <field name="mobile"/>
                     <field name="email"/>
                     <field name="sport_id"/>
                     <field name="level_id"/>
+<<<<<<< HEAD
                     <field name="c_level_id"/>
                     <field name="trainer_id"/>
                     <field name="start_duration"/>
                     <field name="end_duration"/>
+=======
+                    <field name="trainer_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                     <field name="state" widget="badge" decoration-warning="state == 'enrolled'"
                            decoration-primary="state == 'new'" decoration-success="state == 'student'"/>
                 </list>
@@ -64,13 +78,21 @@
             <field name="name">student.admission.view.form</field>
             <field name="model">student.admission</field>
             <field name="arch" type="xml">
+<<<<<<< HEAD
                 <form string="Trainee">
+=======
+                <form string="Student">
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                     <header>
                         <button string="Enroll" name="action_enroll" invisible="state != 'new'" type="object"
                                 confirm="Are you sure ? Enrolling cant be undone."
                                 class="oe_highlight"/>
 
+<<<<<<< HEAD
                         <button string="Make a Trainee" name="action_make_student"
+=======
+                        <button string="Make a student" name="action_make_student"
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                                 invisible="state != 'enrolled' or not is_reservation_done"
                                 type="object" class="oe_highlight"/>
 
@@ -81,7 +103,11 @@
                                 invisible="state != 'enrolled' or is_reservation_done"
                         />
                         <button string="Cancel" name="action_cancel" type="object"
+<<<<<<< HEAD
                                 invisible="1"/>
+=======
+                                invisible="state in ['cancel']"/>
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                         <field name="state" widget="statusbar"/>
 
 
@@ -125,11 +151,15 @@
                                 <field name="parent1_mobile" widget="phone" invisible="check_parent == False"/>
                                 <field name="check_parent" invisible="1"/>
                                 <field name="check_register" invisible="1" readonly="1"/>
+<<<<<<< HEAD
                                 <field name="birth_date"/>
                                 <field name="age"/>
                             </group>
 
 
+=======
+                            </group>
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                             <group string="Sport Activity Details">
                                 <field name="sport_id" options="{'no_create_edit': True, 'no_create': True}"
                                        readonly="state in ['cancel', 'student']"/>
@@ -139,6 +169,7 @@
                                        required="1"
                                        readonly="state in ['cancel','student','enrolled']"/>
 
+<<<<<<< HEAD
                                 <field name="c_level_id"
                                        readonly="state in ['cancel',]"/>
 
@@ -192,6 +223,28 @@
 
 
                                 </group>
+=======
+                                <label for="start_date" string="Planned Date"/>
+                                <div class="w-100">
+                                    <div class="o_row">
+                                        <field name="start_date" widget="daterange" required="1"
+                                               options="{'related_end_date': 'end_date'}"
+                                               readonly="state in ['cancel','student','enrolled']"/>
+                                        <i class="fa fa-long-arrow-right mx-2 oe_edit_only" aria-label="Arrow icon"
+                                           title="Arrow"/>
+                                        <field name="end_date" widget="daterange" required="1"
+                                               options="{'related_start_date': 'start_date'}"
+                                               readonly="state in ['cancel','student','enrolled']"/>
+                                    </div>
+                                </div>
+
+                                <field name="duration"/>
+
+                                <field name="n_of_reservations" readonly="state in ['cancel','student','enrolled']"/>
+
+                                <!--                                <field name="reservation_ids"/>-->
+                                <!--                                <field name="is_reservation_done"/>-->
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                             </group>
                             <group name="disability" string="Disability">
                                 <field name="is_disability"/>
@@ -204,6 +257,7 @@
             </field>
         </record>
 
+<<<<<<< HEAD
 
         <record id="student_partner_view_tree" model="ir.ui.view">
             <field name="name">student.partner.list</field>
@@ -226,17 +280,26 @@
 
         <record id="action_student_admission" model="ir.actions.act_window">
             <field name="name">Trainee Admission</field>
+=======
+        <record id="action_student_admission" model="ir.actions.act_window">
+            <field name="name">Student Admission</field>
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">student.admission</field>
             <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
+<<<<<<< HEAD
                     Click here to add a new Trainee.
+=======
+                    Click here to add a new Student.
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                 </p>
             </field>
         </record>
 
         <record id="action_partner_student" model="ir.actions.act_window">
+<<<<<<< HEAD
             <field name="name">Trainee</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner</field>
@@ -251,11 +314,21 @@
             />
 
 
+=======
+            <field name="name">Student</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,list,form</field>
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
             <field name="domain">[('is_student', '=', True)]</field>
             <field name="context">{'default_is_student': True, 'create': False}</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
+<<<<<<< HEAD
                     Click here to add a new Trainee.
+=======
+                    Click here to add a new Student.
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
                 </p>
             </field>
         </record>
@@ -296,16 +369,37 @@
                           action="action_student_admission"/>
             </menuitem>
             <menuitem id="student_admission_menu" name="Admission" sequence="30">
+<<<<<<< HEAD
                 <menuitem id="partner_student_menu_sub" name="Trainees" sequence="20" action="action_partner_student"/>
+=======
+                <menuitem id="partner_student_menu_sub" name="Students" sequence="20" action="action_partner_student"/>
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
             </menuitem>
             <menuitem id="student_sport_menu" name="Sports" sequence="40">
                 <menuitem id="sport_trainer_menu" name="Coach" sequence="10" action="action_partner_trainer"/>
                 <menuitem id="sport_product_equipment_menu" name="Sports Equipments" sequence="1"
                           action="action_sport_product_equipment"/>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
             </menuitem>
         </menuitem>
 
 
+<<<<<<< HEAD
+=======
+        <record id="cron_update_is_warning" model="ir.cron">
+            <field name="name">Update Warning Field</field>
+            <field name="model_id" ref="model_student_admission"/>
+            <field name="state">code</field>
+            <field name="code">
+                model._update_is_warning()
+            </field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active">True</field>
+        </record>
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
     </data>
 </odoo>

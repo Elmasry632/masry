@@ -2,7 +2,10 @@
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, fields, api
+<<<<<<< HEAD
 from datetime import datetime, timedelta, date
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
 
 
 class ResPartner(models.Model):
@@ -13,11 +16,16 @@ class ResPartner(models.Model):
     p_name = fields.Char('Parent Name')
     short_name = fields.Char('Short Name')
     is_disability = fields.Boolean('Disability', default=False)
+<<<<<<< HEAD
     disability_description = fields.Text('Disability Description')
+=======
+    disability_description = fields.Text('Disability Description')    
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
     trainer_id = fields.Many2one(string='Current Coach', comodel_name='res.partner', domain=[('is_coach', '=', True)])
     is_sport = fields.Boolean('Sport Product')
     sport_id = fields.Many2many(
         'product.product', string="Sport Name", domain=[('is_sportname', '=', True)])
+<<<<<<< HEAD
     admission_id = fields.Many2one(comodel_name='student.admission')
     admission_end_date = fields.Date(string='Admission end date', related='admission_id.end_duration')
     is_admission_finished = fields.Boolean()
@@ -38,6 +46,8 @@ class ResPartner(models.Model):
                 record.is_warning = True
             else:
                 record.is_warning = False
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
 
     @api.model
     def get_data(self):
@@ -51,18 +61,26 @@ class ResPartner(models.Model):
         center_event = self.env['event.event'].search([])
         total_sports = self.env['res.partner'].search([('is_sport', '=', True)])
         total_equipment = self.env['product.product'].search([('is_equipment', '=', True)])
+<<<<<<< HEAD
         data = {'total_inquiries': len(inquiries), 'total_center_events': len(center_event),
                 'total_bookings': len(bookings), 'total_sports': len(total_sports),
                 'total_equipment': len(total_equipment), 'total_center_spaces': len(center_spaces),
                 'total_trainers': len(trainers), 'total_students': len(students),
                 'total_confirm_admissions': len(admissions), 'total_enroll_admissions': len(enroll_admissions)}
+=======
+        data =  {'total_inquiries': len(inquiries), 'total_center_events': len(center_event), 'total_bookings': len(bookings), 'total_sports': len(total_sports), 'total_equipment': len(total_equipment), 'total_center_spaces': len(center_spaces), 'total_trainers': len(trainers), 'total_students': len(students), 'total_confirm_admissions': len(admissions), 'total_enroll_admissions': len(enroll_admissions)}
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
         return data
 
     def default_get(self, fields):
         res = super(ResPartner, self).default_get(fields)
         context = self._context
         params = context.get('params')
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
         if context.get('default_is_student') and not params:
             res.update({
                 'is_student': True,
@@ -88,6 +106,7 @@ class ResPartner(models.Model):
                 'is_student': False,
             })
 
+<<<<<<< HEAD
         return res
 
     @api.model
@@ -103,3 +122,6 @@ class ResPartner(models.Model):
                 if current_date >= end_date:
                     student.is_admission_finished = True
                     student.is_warning = False
+=======
+        return res
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639

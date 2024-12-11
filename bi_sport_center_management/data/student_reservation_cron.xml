@@ -1,5 +1,9 @@
 <odoo>
+<<<<<<< HEAD
     <data noupdate="0">
+=======
+    <data noupdate="1">
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
         <record id="ir_cron_update_reservation_states" model="ir.cron">
             <field name="name">Update Reservation States</field>
             <field name="model_id" ref="model_student_reservation"/>
@@ -10,6 +14,7 @@
             <field name="active">True</field>
         </record>
 
+<<<<<<< HEAD
         <record id="ir_cron_update_student_admission_end_date_state" model="ir.cron">
             <field name="name">Update Student Admission End Date State</field>
             <field name="model_id" ref="base.model_res_partner"/>
@@ -55,6 +60,8 @@
             <field name="interval_type">days</field>
             <field name="active">True</field>
         </record>
+=======
+>>>>>>> 82abafd9f08b9e97473ef0f8668618f5fcdd8639
 
 
     </data>
